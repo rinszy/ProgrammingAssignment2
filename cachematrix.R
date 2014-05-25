@@ -1,8 +1,6 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Pair of functions that calculate the inverse of a matrix and cache it. 
 
 ## This function creates a special "matrix" object that can cache its inverse.
-
 makeCacheMatrix <- function(x = matrix()) {
       m <- NULL
       set <- function(y) {
@@ -10,31 +8,32 @@ makeCacheMatrix <- function(x = matrix()) {
             m <<- NULL
       }
       get <- function() x
-      setinvs <- function(mean) m <<- mean
-      getinvs <- function() m
+      setinverse <- function(inverse) m <<- inverse
+      getinverse <- function() m
       list(set = set, get = get,
-           setinvs = setinvs,
-           getinvs = getinvs)
+           setinverse = setinverse,
+           getinverse = getinverse)
 }
 
 
-## This function computes the inverse of the special "matrix" returned by makeCacheMatrix above.
-## If the inverse has already been calculated (and the matrix has not changed), 
-## then the cachesolve should retrieve the inverse from the cache.
-
+## This function computes the inverse of the special "matrix" returned by 
+## makeCacheMatrix above.If the inverse has already been calculated 
+## (and the matrix has not changed), then the cachesolve should retrieve 
+## the inverse from the cache.
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-      m <- x$getinvs()
+      m <- x$getinverse()
       if(!is.null(m)) {
             message("getting cached data")
             return(m)
       }
       data <- x$get()
-      m <- mean(data, ...)
-      x$setinvs(m)
+      m <- solve(data, ...)
+      x$setinverse(m)
       m
 }
 
-## help from: https://class.coursera.org/rprog-003/forum/thread?thread_id=87
+
+# help from: https://class.coursera.org/rprog-003/forum/thread?thread_id=87
 # https://class.coursera.org/rprog-003/forum/thread?thread_id=511
-# 
+# test case at https://class.coursera.org/rprog-003/forum/thread?thread_id=650
